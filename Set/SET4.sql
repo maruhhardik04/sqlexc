@@ -1,0 +1,6 @@
+-- Create the database COMPANY and create given tables with all necessary constraints such as 
+-- primary key, foreign key, unique key, not null and check constraints.
+-- EMPLOYEE (emp_id, emp_name, birth_date, gender, dept_no, address, designation, salary, 
+--  experience, email)
+-- DEPART (dept_no, dept_name, total_employees, location)
+-- PROJECT (proj_id, type_of_project, status, start_date, emp_id)
