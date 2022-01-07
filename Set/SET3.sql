@@ -25,3 +25,5 @@ CREATE TABLE SC(
     scourseno NUMBER references COURS(courseno),
     PRIMARY KEY(rollno,courseno)
 );
+
+
