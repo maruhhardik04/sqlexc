@@ -1,0 +1,6 @@
+COLUMN <column_Name> FORMAT A<number of character>
+
+ParentID Name FatherName SName      Dob     (ChildOf)Id
+1           x   Y           Z      10-1-1969   0
+2           w   x           Z       10-1-02    1
+3           u   w           Z      10-1-2020   2
