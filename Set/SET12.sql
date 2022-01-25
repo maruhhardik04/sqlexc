@@ -44,6 +44,23 @@ select count(fname),country from CUSTOMER where country not in('US') group by co
 select fname from CUSTOMER where cid in(
 select cid from Ord group by cid having avg(oTotalAmount) between 5000 and 10000);
 
+
+
+-- 4. Create a trigger that executes whenever country is updated in CUSTOMER table.
+
+CREATE or REPLACE TRIGGER T7
+BEFORE   UPDATE  on CUSTOMER
+FOR EACH ROW
+
+BEGIN
+        dbms_output.put_line('You are updating record customer'||:OLD.country || ' to '||:NEW.country||' country in customer');               
+END;
+/
+
+
+
+
+
 -- 5. Create a function to return customer with maximum orders.
 
 create or replace function f1
@@ -106,3 +123,6 @@ BEGIN
         dbms_output.put_line('-------');      
 END;        
 /
+
+
+
