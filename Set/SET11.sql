@@ -201,3 +201,26 @@ IS
             );  
     END;
 /    
+
+
+-- 9. Write a trigger which do not allow to insert or update passenger record if age is greater
+-- than 100.
+
+
+CREATE or REPLACE TRIGGER t6
+BEFORE INSERT or UPDATE  on PASSENGER_DETAILS
+FOR EACH ROW
+DECLARE
+    msg VARCHAR2(100);
+BEGIN
+        msg:='';
+        IF :NEW.age < 0 OR :NEW.age > 100 THEN
+            IF inserting THEN
+                msg:=' insert ';
+            ELSIF updating then
+                msg:=' update '; 
+            END IF;
+        RAISE_APPLICATION_ERROR(-20000,'You can not'||msg||'record if  age is greater than 100.');
+        END IF;               
+END;
+/
