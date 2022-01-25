@@ -52,8 +52,7 @@ CREATE TABLE TICKET_DETAILS(
     NAME VARCHAR2(20), 
     SEX VARCHAR2(1) CHECK(SEX IN('F','M')), 
     AGE NUMBER CHECK(AGE>0), 
-    FARE NUMBER,
-
+    FARE NUMBER
     );    
 
 INSERT INTO TICKET_DETAILS VALUES(1,'XYZ','F',24,100);  
@@ -149,3 +148,25 @@ END;
 exec print_tour_detail(1);          
     
 
+-- 6. Write a trigger which allow to insert or update the bus capacity only greater than zero
+-- and less than 60.
+
+
+
+CREATE or REPLACE TRIGGER t6
+BEFORE INSERT or UPDATE  on ROUTEMASTER
+FOR EACH ROW
+DECLARE
+    msg VARCHAR2(100);
+BEGIN
+        msg:='';
+        IF :NEW.CAPACITY < 0 OR :NEW.CAPACITY > 60 THEN
+            IF inserting THEN
+                msg:=' insert ';
+            ELSIF updating then
+                msg:=' update '; 
+            END IF;
+        RAISE_APPLICATION_ERROR(-20000,'You can not'||msg||'record if  bus capacity only greater than zero and less than 60');
+        END IF;               
+END;
+/

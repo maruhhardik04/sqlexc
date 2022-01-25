@@ -35,6 +35,7 @@ INSERT INTO ENTRANCE_TEST VALUES(4,'JEE',400,250);
 INSERT INTO ENTRANCE_TEST VALUES(5,'TAT',400,300);
 INSERT INTO ENTRANCE_TEST VALUES(6,'abc',400,300);
 
+
 CREATE TABLE ETEST_CENTRE(
     ETCID NUMBER primary key, 
     LOCATION VARCHAR(20) not null, 
@@ -270,3 +271,31 @@ End;
 /
 
 exec details;
+
+
+
+
+-- 15. Write a trigger which do not allow insertion / updation / deletion of Enterance test
+-- details on Sunday.
+
+
+
+CREATE or REPLACE TRIGGER t5
+BEFORE INSERT or UPDATE or DELETE on ENTRANCE_TEST
+FOR EACH ROW
+DECLARE
+    msg VARCHAR2(100);
+BEGIN
+        msg:='';
+        IF  trim(to_char(sysdate,'DAY'))='SUNDAY' THEN
+            IF inserting THEN
+                msg:=' insert ';
+            ELSIF updating then
+                msg:=' update ';
+            else
+                msg:= ' delete '; 
+            END IF;
+        RAISE_APPLICATION_ERROR(-20000,'You can not'||msg||'record because today is sunday');
+        END IF;               
+END;
+/
